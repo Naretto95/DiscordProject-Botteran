@@ -22,6 +22,6 @@ module.exports = {
             .setImage('https://i.imgur.com/wSTFkRM.png')
             .setTimestamp()
             .setFooter('Some footer text here', 'https://i.imgur.com/wSTFkRM.png');        
-        message.channel.send(exampleEmbed);
+        message.channel.send({embeds: [exampleEmbed]});
 	},
 };
