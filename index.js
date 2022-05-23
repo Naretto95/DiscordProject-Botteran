@@ -16,7 +16,7 @@ for (const file of commandFiles) {
 	client.commands.set(command.name, command);
 }
 
-client.on('messageCreate', async (message) => {
+client.on('messageCreate', message => {
 	if (!message.content.startsWith(prefix) || message.author.bot) return;
 
 	const args = message.content.slice(prefix.length).trim().split(/ +/);
@@ -28,7 +28,7 @@ client.on('messageCreate', async (message) => {
 	if (!command) return;
 
     if (command.args && !args.length) {
-        return message.channel.send(`Argument manquant, ${message.author}!`);
+        return message.channel.send(`Argument manquant, ${message.author} !`);
     }
     
     if (!cooldowns.has(command.name)) {
@@ -55,7 +55,7 @@ client.on('messageCreate', async (message) => {
         command.execute(message, args);
     } catch (error) {
         console.error(error);
-        message.reply('Erreur d\'éxecution de la commande!');
+        message.reply('Erreur d\'éxecution de la commande !');
     }
 });
 

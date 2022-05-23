@@ -9,7 +9,6 @@ module.exports = {
             .setColor('#0099ff')
             .setTitle('Some title')
             .setURL('https://discord.js.org/')
-            .setAuthor('Some name', 'https://i.imgur.com/wSTFkRM.png', 'https://discord.js.org')
             .setDescription('Some description here')
             .setThumbnail('https://i.imgur.com/wSTFkRM.png')
             .addFields(
@@ -20,8 +19,7 @@ module.exports = {
             )
             .addField('Inline field title', 'Some value here', true)
             .setImage('https://i.imgur.com/wSTFkRM.png')
-            .setTimestamp()
-            .setFooter('Some footer text here', 'https://i.imgur.com/wSTFkRM.png');        
+            .setTimestamp()   
         message.channel.send({embeds: [exampleEmbed]});
 	},
 };

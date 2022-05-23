@@ -6,22 +6,22 @@ module.exports = {
 	usage: '[commande]',
 	cooldown: 5,
 	execute(message, args) {
-		const data = [];
+		let data = new String();
         const { commands } = message.client;
 
         if (!args.length) {
-            data.push('Voici la liste de toutes mes commandes:');
-            data.push(commands.map(command => command.name).join(', '));
-            data.push(`\nEcrivez \`${prefix}help [commande]\` pour avoir la description d'une commande spécifique!`);
+            data+='Voici la liste de toutes mes commandes :\n';
+            data+=commands.map(command => command.name).join(', ')+'\n';
+            data+=`\nEcrivez \`${prefix}help [commande]\` pour avoir la description d'une commande spécifique !`;
 
             return message.author.send(data, { split: true })
                 .then(() => {
                     if (message.channel.type === 'dm') return;
-                    message.reply('Je vous ai envoyé un DM avec toutes mes commandes!');
+                    message.reply('Je vous ai envoyé un DM avec toutes mes commandes !');
                 })
                 .catch(error => {
                     console.error(`Erreur dans l'envoi d'un DM ${message.author.tag}.\n`, error);
-                    message.reply('DM impossible ! Avez-vous bloqué vos DM?');
+                    message.reply('DM impossible ! Avez-vous bloqué vos DM ?');
                 });
         }
 
@@ -29,17 +29,16 @@ module.exports = {
         const command = commands.get(name) || commands.find(c => c.aliases && c.aliases.includes(name));
 
         if (!command) {
-            return message.reply('Commande invalide!');
+            return message.reply('Commande invalide !');
         }
 
-        data.push(`**Nom:** ${command.name}`);
+        data+=`**Nom:** ${command.name}\n`;
 
-        if (command.aliases) data.push(`**Alias:** ${command.aliases.join(', ')}`);
-        if (command.description) data.push(`**Description:** ${command.description}`);
-        if (command.usage) data.push(`**Usage:** ${prefix}${command.name} ${command.usage}`);
+        if (command.aliases) data+=`**Alias:** ${command.aliases.join(', ')}\n`;
+        if (command.description) data+=`**Description:** ${command.description}\n`;
+        if (command.usage) data+=`**Usage:** ${prefix}${command.name} ${command.usage}\n`;
 
-        data.push(`**Cooldown:** ${command.cooldown || 3} seconde(s)`);
-
+        data+=`**Cooldown:** ${command.cooldown || 3} seconde(s)\n`;
         message.channel.send(data, { split: true });
 	},
 };
